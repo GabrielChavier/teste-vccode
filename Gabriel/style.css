@@ -1,0 +1,186 @@
+/* Reset básico para uma base consistente */
+body, h1, h2, h3, p, form, table {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo geral do corpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef; /* Plano de fundo mais suave */
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Container principal */
+.container {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Menu lateral */
+.menu {
+    width: 25%;
+    background: #262626;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.menu .card {
+    background: #f29544;
+    color: #ffffff;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.menu .card:hover {
+    background: #e87c29;
+}
+
+/* Container dos formulários */
+#form-container {
+    width: 75%;
+    padding: 15px;
+}
+
+/* Formulários */
+.form {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    background: #f9f9f9; /* Plano de fundo suave para os formulários */
+}
+
+/* Botão de fechar */
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: #f29544;
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+.close-btn:hover {
+    background: #e87c29;
+}
+
+/* Títulos dos formulários */
+h2 {
+    color: #262626;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+/* Labels e Inputs */
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+select:focus {
+    border-color: #f29544;
+    outline: none;
+}
+
+/* Botão Salvar */
+button {
+    background: #f29544;
+    color: #ffffff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #e87c29;
+}
+
+/* Tabelas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table thead {
+    background: #f29544;
+    color: #ffffff;
+}
+
+table th, table td {
+    padding: 6px; /* Reduzido o padding para compactar */
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 12px; /* Reduzido o tamanho da fonte */
+}
+
+table tr:hover {
+    background: #f4f4f4;
+}
+
+/* Input de pesquisa */
+input[type="text"] {
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Botão Limpar Dados */
+button#clear-data {
+    background: #e74c3c;
+    color: #ffffff;
+    padding: 8px 16px;
+    margin-top: 15px;
+}
+
+button#clear-data:hover {
+    background: #c0392b;
+}

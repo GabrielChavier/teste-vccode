@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Controle de Vendas - Rede Sigma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="menu">
+            <div class="card" onclick="showForm('veiculo')">Veículos</div>
+            <div class="card" onclick="showForm('cliente')">Clientes</div>
+            <div class="card" onclick="showForm('vendedor')">Vendedores</div>
+            <div class="card" onclick="showForm('montadora')">Montadoras</div>
+            <div class="card" onclick="showForm('operacao')">Operações</div>
+            <div class="card" onclick="showForm('pedido')">Pedidos</div>
+        </div>
+        <div id="form-container">
+            <!-- Formulário de Veículo -->
+            <div id="veiculo-form" class="form" style="display:none;">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Cadastro de Veículo</h2>
+                <form id="veiculo-form-content">
+                    <label for="chassi">Número do Chassi:</label>
+                    <input type="text" name="chassi" id="chassi" maxlength="17" required>  
+                    <label for="placa">Placa:</label>
+                    <input type="text" name="placa" id="placa" maxlength="8" required>
+                    
+                    <label for="marca">Marca:</label>
+                    <select name="marca" id="marca" required></select>
+                    
+                    <label for="modelo">Modelo:</label>
+                    <select name="modelo" id="modelo" required></select>
+                    
+                    <label for="anoFabricacao">Ano de Fabricação:</label>
+                    <select name="anoFabricacao" id="anoFabricacao" required>
+                        <option value="">Selecione o Ano</option>
+                    </select>
+                    
+                    <label for="anoModelo">Ano do Modelo:</label>
+                    <select name="anoModelo" id="anoModelo" required>
+                        <option value="">Selecione o Ano</option>
+                    </select>
+                    
+                    <label for="cor">Cor:</label>
+                    <select name="cor" id="cor" required>
+                        <option value="">Selecione a Cor</option>
+                    </select>
+                    
+                    <label for="valor">Valor:</label>
+                    <input type="text" name="valor" id="valor" required>
+                    
+                    <button type="button" onclick="saveItem('veiculo')">Salvar</button>
+                </form>
+                
+                <!-- Tabela de listagem -->
+                <h3>Listagem de Veículos</h3>
+                <input type="text" id="veiculo-search" placeholder="Pesquisar...">
+                <table id="veiculo-list">
+                    <thead>
+                        <tr>
+                            <th>Chassi</th>
+                            <th>Placa</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Ano de Fabricação</th>
+                            <th>Ano do Modelo</th>
+                            <th>Cor</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Formulário de Cliente -->
+            <div id="cliente-form" class="form" style="display:none;">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Cadastro de Cliente</h2>
+                <form id="cliente-form-content">
+                    <label for="cpf">CPF:</label>
+                    <input type="text" name="cpf" required>
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" required>
+                    <label for="endereco">Endereço:</label>
+                    <input type="text" name="endereco" required>
+                    <label for="telefone">Telefone Residencial:</label>
+                    <input type="text" name="telefone" required>
+                    <label for="celular">Celular:</label>
+                    <input type="text" name="celular" required>
+                    <label for="renda">Renda:</label>
+                    <input type="text" name="renda" required>
+                    <button type="button" onclick="saveItem('cliente')">Salvar</button>
+                </form>
+                <!-- Tabela de listagem -->
+                <h3>Listagem de Clientes</h3>
+                <input type="text" id="cliente-search" placeholder="Pesquisar...">
+                <table id="cliente-list">
+                    <thead>
+                        <tr>
+                            <th>CPF</th>
+                            <th>Nome</th>
+                            <th>Endereço</th>
+                            <th>Telefone</th>
+                            <th>Celular</th>
+                            <th>Renda</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Formulário de Vendedor -->
+            <div id="vendedor-form" class="form" style="display:none;">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Cadastro de Vendedor</h2>
+                <form id="vendedor-form-content">
+                    <label for="codigo">Código:</label>
+                    <input type="text" name="codigo" readonly required>
+                    <label for="usuario">Usuário:</label>
+                    <input type="text" name="usuario" required>
+                    <button type="button" onclick="saveItem('vendedor')">Salvar</button>
+                </form>
+                
+                <!-- Tabela de listagem -->
+                <h3>Listagem de Vendedores</h3>
+                <input type="text" id="vendedor-search" placeholder="Pesquisar...">
+                <table id="vendedor-list">
+                    <thead>
+                        <tr>
+                            <th>Código</th>
+                            <th>Usuário</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Formulário de Montadora -->
+            <div id="montadora-form" class="form" style="display:none;">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Cadastro de Montadora</h2>
+                <form id="montadora-form-content">
+                    <label for="cnpj">CNPJ:</label>
+                    <input type="text" name="cnpj" id="cnpj" required>
+                    <label for="razaoSocial">Razão Social:</label>
+                    <input type="text" name="razaoSocial" id="razaoSocial" required>
+                    <label for="marca">Marca:</label>
+                    <select name="marca" id="marca" required>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Ford">Ford</option>
+                        <option value="Chevrolet">Chevrolet</option>
+                        <option value="Volkswagen">Volkswagen</option>
+                        <option value="Nissan">Nissan</option>
+                        <option value="Hyundai">Hyundai</option>
+                        <option value="Fiat">Fiat</option>
+                        <option value="BMW">BMW</option>
+                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                    </select>
+                    <label for="telefoneComercial">Telefone Comercial:</label>
+                    <input type="text" name="telefoneComercial" id="telefoneComercial" required>
+                    <label for="celular">Celular:</label>
+                    <input type="text" name="celular" id="celular" required>
+                    <button type="button" onclick="saveItem('montadora')">Salvar</button>
+                </form>
+                
+                
+                
+                <!-- Tabela de listagem -->
+                <h3>Listagem de Montadoras</h3>
+                <input type="text" id="montadora-search" placeholder="Pesquisar...">
+                <table id="montadora-list">
+                    <thead>
+                        <tr>
+                            <th>CNPJ</th>
+                            <th>Razão Social</th>
+                            <th>Marca</th>
+                            <th>Telefone Comercial</th>
+                            <th>Celular</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Formulário de Operação -->
+            <div id="operacao-form" class="form" style="display:none;">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Realizar Venda</h2>
+                <form id="operacao-form-content">
+                    <label for="numero">Número da Venda:</label>
+                    <input type="text" name="numero" id="numero" readonly> <!-- Campo gerado automaticamente -->
+                
+                    <label for="data">Data:</label>
+                    <input type="date" name="data" required>
+                
+                    <label for="cliente">Cliente:</label>
+                    <select name="cliente" id="cliente" required>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                
+                    <label for="vendedor">Vendedor:</label>
+                    <select name="vendedor" id="vendedor" required>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                
+                    <label for="veiculo">Veículo:</label>
+                    <select name="veiculo" id="veiculo" required>
+                        <!-- Opções serão preenchidas dinamicamente -->
+                    </select>
+                
+                    <label for="valorCompra">Valor da Compra:</label>
+                    <input type="text" name="valorCompra" id="valorCompra" required>
+                
+                    <label for="valorEntrada">Valor da Entrada:</label>
+                    <input type="text" name="valorEntrada" id="valorEntrada" required>
+
+                
+                    <label for="valorFinanciado">Valor Financiado:</label>
+                    <input type="text" name="valorFinanciado" id="valorFinanciado" readonly>
+                
+                    <label for="parcelas">Quantidade de Parcelas:</label>
+                    <input type="number" name="quantidadeParcelas" id="quantidadeParcelas" required>
+                
+                    <label for="valorParcelas">Valor das Parcelas:</label>
+                    <input type="text" name="valorParcelas" id="valorParcelas" readonly>
+                
+                    <label for="valorTotal">Valor Total:</label>
+                    <input type="text" name="valorTotal" id="valorTotal" readonly>
+                
+                    <button type="button" onclick="saveItem('operacao')">Salvar</button>
+                </form>
+                
+                
+                <!-- Tabela de listagem -->
+                <h3>Listagem de Operações</h3>
+                <input type="text" id="operacao-search" placeholder="Pesquisar...">
+                <table id="operacao-list">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Data</th>
+                            <th>Cliente</th>
+                            <th>Vendedor</th>
+                            <th>Veículo</th>
+                            <th>Valor da Entrada</th>
+                            <th>Valor Financiado</th>
+                            <th>Parcelas</th>
+                            <th>Valor das Parcelas</th>
+                            <th>Valor Total</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Formulário de Pedido -->
+            <div id="pedido-form" class="form" style="display:none;">
+                <button class="close-btn" onclick="closeForm()">X</button>
+                <h2>Cadastro de Pedido</h2>
+                <form id="pedido-form-content">
+                    <label for="numero">Número do Pedido:</label>
+                    <input type="text" name="numero" id="numero" readonly> <!-- Campo gerado automaticamente -->
+                
+                    <label for="data">Data:</label>
+                    <input type="date" name="data" id="data" required>
+                
+                    <label for="montadora">Montadora:</label>
+                    <select name="montadora" id="montadora" required>
+                        <option value="">Selecione uma montadora</option>
+                        <option value="fiat">Fiat</option>
+                        <option value="volkswagen">Volkswagen</option>
+                        <option value="ford">Ford</option>
+                    </select>
+                
+                    <label for="veiculo">Veículo:</label>
+                    <select name="veiculo" id="veiculo" required>
+                        <!-- As opções serão preenchidas com base na montadora selecionada -->
+                        <option value="">Selecione um modelo</option>
+                        <!-- Modelos da Fiat -->
+                        <option value="uno" class="fiat">Uno</option>
+                        <option value="punto" class="fiat">Punto</option>
+                        <option value="cronos" class="fiat">Cronos</option>
+                        <!-- Modelos da Volkswagen -->
+                        <option value="gol" class="volkswagen">Gol</option>
+                        <option value="polo" class="volkswagen">Polo</option>
+                        <option value="tcross" class="volkswagen">T-Cross</option>
+                        <!-- Modelos da Ford -->
+                        <option value="ka" class="ford">Ka</option>
+                        <option value="fiesta" class="ford">Fiesta</option>
+                        <option value="ecosport" class="ford">EcoSport</option>
+                    </select>
+                
+                    <label for="quantidade">Quantidade:</label>
+                    <input type="number" name="quantidade" id="quantidade" required>
+                
+                    <button type="button" onclick="saveItem('pedido')">Salvar</button>
+                </form>
+                
+                
+                <script src="pedido.js"></script>
+                
+                
+                </form>
+                <!-- Tabela de listagem -->
+                <h3>Listagem de Pedidos</h3>
+                <input type="text" id="pedido-search" placeholder="Pesquisar...">
+                <table id="pedido-list">
+                    <thead>
+                        <tr>
+                            <th>Número</th>
+                            <th>Data</th>
+                            <th>Montadora</th>
+                            <th>Veículo</th>
+                            <th>Quantidade</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Dados serão preenchidos dinamicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button onclick="clearLocalStorage()">Limpar Dados</button>
+    <script src="veiculo.js"></script>
+    <script src="cliente.js"></script>
+    <script src="vendedor.js"></script>
+    <script src="montadora.js"></script>
+    <script src="operacao.js"></script>
+    <script src="pedido.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
